@@ -18,7 +18,7 @@ connection.once("open", () => {
 });
 
 const usersRouter = require("./routes/users");
-const DatasRouter = require("./routes/Datas");
+const DatasRouter = require("./routes/datas");
 
 // const exerciseRouter = require("./routes/exercises");
 // const userRouter = require("./routes/users");

@@ -11,7 +11,7 @@ import Paper from "@material-ui/core/Paper";
 import SimpleModal from "../helpers/CollegeInfoModal";
 
 export default function Data() {
-  const [collegeData, setCollegeData] = useState({ "bhen ki lodi": 1000 });
+  const [collegeData, setCollegeData] = useState({});
   const classes = useStyles();
 
   useEffect(() => {
@@ -45,12 +45,12 @@ export default function Data() {
                   key={value.username}
                 >
                   <TableCell component="th" scope="row">
-                    {value.Program}
-                    <br />
-                    {value.Specialization}
+                    {value.datasname}
                   </TableCell>
-                  <TableCell align="right">{value["Institute Name"]}</TableCell>
-                  <TableCell align="right">{value["Inst Address"]}</TableCell>
+                  <TableCell align="right">
+                    {value["Date/Year of Notification/ Establishment"]}
+                  </TableCell>
+                  <TableCell align="right">{value.Address}</TableCell>
                   <TableCell align="right">{value.State}</TableCell>
                   <TableCell align="right">
                     <SimpleModal
