@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -13,6 +14,15 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link as Linker } from "react-router-dom";
+import app from "../fire";
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+} from "firebase/auth";
 
 function Copyright() {
   return (
@@ -58,10 +68,51 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  toolbar: {
+    borderBottom: `1px solid ${theme.palette.divider}`,
+  },
 }));
 
 export default function SignInSide() {
   const classes = useStyles();
+
+  let history = useHistory();
+
+  const SignIn = async () => {
+    console.log(email);
+    console.log(password);
+
+    console.log(
+      signInWithEmailAndPassword(getAuth(), email, password).catch((err) => {
+        setUser(getAuth().currentUser);
+        console.log(err.message);
+      })
+    );
+    await signInWithEmailAndPassword(getAuth(), email, password).catch(
+      (err) => {
+        console.log(err.message);
+      }
+    );
+    history.push("/");
+
+    try {
+      console.log(
+        onAuthStateChanged(getAuth(), (user) => {
+          console.log(user);
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
+
+    setEmail("");
+    setPassword("");
+    setUser("");
+  };
+
+  const [user, setUser] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -72,7 +123,17 @@ export default function SignInSide() {
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography
+            component="h1"
+            variant="h5"
+            onClick={() => {
+              console.log(signOut(getAuth()));
+              signOut(getAuth());
+              // onAuthStateChanged(getAuth, (user) => {
+              //   console.log(user);
+              // });
+            }}
+          >
             Sign in
           </Typography>
           <form className={classes.form} noValidate>
@@ -86,6 +147,9 @@ export default function SignInSide() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
             />
             <TextField
               variant="outlined"
@@ -97,30 +161,45 @@ export default function SignInSide() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={SignIn}
             >
               Sign In
             </Button>
             <Grid container>
-              <Grid item xs>
+              <Grid item xs={3}>
                 <Link href="#" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
-              <Grid item>
+              <Grid style={{ marginLeft: "180px" }} item xs>
                 <Linker to="/SignUp">
                   <Link href="#" variant="body2">
                     {"Don't have an account? Sign Up"}
+                  </Link>
+                </Linker>
+              </Grid>
+            </Grid>
+            <Grid container>
+              <Grid item xs={3}>
+                <Link href="#" variant="body2"></Link>
+              </Grid>
+              <Grid style={{ marginLeft: "340px" }} item xs>
+                <Linker to="/">
+                  <Link href="#" variant="body2">
+                    {"Home"}
                   </Link>
                 </Linker>
               </Grid>

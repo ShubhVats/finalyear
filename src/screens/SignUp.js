@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -12,7 +12,16 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { Link as Linker } from "react-router-dom";
+import { Link as Linker, useHistory } from "react-router-dom";
+import fire from "../fire";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  UserProfile,
+  updateProfile,
+} from "firebase/auth";
 
 function Copyright() {
   return (
@@ -50,8 +59,39 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
   const classes = useStyles();
 
+  const SignUpauth = async () => {
+    console.log(email);
+    console.log(password);
+
+    const first = await createUserWithEmailAndPassword(
+      getAuth(),
+      email,
+      password
+    ).catch((err) => {
+      console.log(err.message);
+    });
+    const second = await onAuthStateChanged(getAuth(), (user) => {
+      console.log(user);
+    });
+    try {
+      const wait = await updateProfile(first.user, {
+        displayName: `${name} ${lastName}`,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+    history.push("/");
+  };
+  const [user, setUser] = useState("");
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  let history = useHistory();
   return (
     <Container component="main" maxWidth="xs">
+      {console.log("hi")}
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -72,6 +112,9 @@ export default function SignUp() {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -83,6 +126,9 @@ export default function SignUp() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                onChange={(e) => {
+                  setLastName(e.target.value);
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -94,6 +140,9 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -106,21 +155,32 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
               />
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
                 label="I want to receive inspiration, marketing promotions and updates via email."
+                onClick={() => {
+                  signOut(getAuth());
+                  setEmail("");
+                  setPassword("");
+                  setName("");
+                  setLastName("");
+                  console.log("Success");
+                }}
               />
             </Grid>
           </Grid>
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={SignUpauth}
           >
             Sign Up
           </Button>

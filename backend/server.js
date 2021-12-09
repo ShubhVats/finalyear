@@ -18,13 +18,14 @@ connection.once("open", () => {
 });
 
 const usersRouter = require("./routes/users");
-const DatasRouter = require("./routes/datas");
-
+const DatasRouter = require("./routes/Datas");
+const BannersRouter = require("./routes/Banners");
 // const exerciseRouter = require("./routes/exercises");
 // const userRouter = require("./routes/users");
 
 app.use("/users", usersRouter);
 app.use("/Datas", DatasRouter);
+app.use("/Banners", BannersRouter);
 // app.use("/exercises", exerciseRouter);
 // app.use("/users", userRouter);
 

@@ -5,11 +5,11 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
+import { Link as Linker } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   mainFeaturedPost: {
     position: "relative",
-    backgroundColor: theme.palette.grey[800],
     color: theme.palette.common.white,
     marginBottom: theme.spacing(4),
     backgroundImage: "url(https://source.unsplash.com/random)",
@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
     bottom: 0,
     right: 0,
     left: 0,
-    backgroundColor: "rgba(0,0,0,.3)",
   },
   mainFeaturedPostContent: {
     position: "relative",
@@ -42,9 +41,12 @@ export default function MainFeaturedPost(props) {
   return (
     <Paper
       className={classes.mainFeaturedPost}
-      style={{ backgroundImage: `url(${post.image})` }}
+      style={{
+        backgroundImage: `url(${post.image})`,
+        borderRadius: "10px",
+        height: "50vh",
+      }}
     >
-      {/* Increase the priority of the hero background image */}
       {
         <img
           style={{ display: "none" }}
@@ -67,9 +69,11 @@ export default function MainFeaturedPost(props) {
             <Typography variant="h5" color="inherit" paragraph>
               {post.description}
             </Typography>
-            <Link variant="subtitle1" href="#">
-              {post.linkText}
-            </Link>
+            <Linker to={post.imgText}>
+              <Link variant="subtitle1" href={post.imgText}>
+                {post.linkText}
+              </Link>
+            </Linker>
           </div>
         </Grid>
       </Grid>

@@ -1,3 +1,5 @@
+//TODO change album card to Middle Divider
+
 import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
