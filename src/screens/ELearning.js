@@ -1,14 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import Container from "@material-ui/core/Container";
-import Paper from "@material-ui/core/Paper";
 import React, { useEffect, useState } from "react";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
 
 import Header from "../helpers/Header";
 import SimpleModal from "../helpers/CollegeInfoModal";
@@ -66,7 +59,7 @@ const sections = [
   },
 ];
 
-export default function Data() {
+export default function ELearning() {
   const [collegeData, setCollegeData] = useState({});
   const classes = useStyles();
 
@@ -83,45 +76,6 @@ export default function Data() {
     <div>
       <Container maxWidth="lg">
         <Header sections={sections} />
-        <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Course</TableCell>
-                <TableCell align="right">College</TableCell>
-                <TableCell align="right">Address</TableCell>
-                <TableCell align="right">State</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {Object.values(collegeData).map((value) => {
-                return (
-                  <TableRow
-                    onClick={() => {
-                      console.log(value["State"]);
-                    }}
-                    key={value.username}
-                  >
-                    <TableCell component="th" scope="row">
-                      {value.datasname}
-                    </TableCell>
-                    <TableCell align="right">
-                      {value["Date/Year of Notification/ Establishment"]}
-                    </TableCell>
-                    <TableCell align="right">{value.Address}</TableCell>
-                    <TableCell align="right">{value.State}</TableCell>
-                    <TableCell align="right">
-                      <SimpleModal
-                        name={value["Institute Name"]}
-                        Specialization={value.Specialization}
-                      />
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
       </Container>
     </div>
   );
