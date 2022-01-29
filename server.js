@@ -22,6 +22,7 @@ const DatasRouter = require("./routes/Datas");
 const BannersRouter = require("./routes/Banners");
 const ExamsRouter = require("./routes/Exams");
 const ArticlesRouter = require("./routes/Articles");
+const ReviewRouter = require("./routes/Reviews");
 // const exerciseRouter = require("./routes/exercises");
 // const userRouter = require("./routes/users");
 
@@ -30,6 +31,7 @@ app.use("/Datas", DatasRouter);
 app.use("/Banners", BannersRouter);
 app.use("/Exams", ExamsRouter);
 app.use("/Articles", ArticlesRouter);
+app.use("/Reviews", ReviewRouter);
 // app.use("/exercises", exerciseRouter);
 // app.use("/users", userRouter);
 
