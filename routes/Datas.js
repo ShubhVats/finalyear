@@ -8,4 +8,21 @@ router.route("/").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+router.route("/add").post((req, res) => {
+  const State = req.body.State;
+  const Address = req.body.Address;
+  const DOB = req.body["Date/Year of Notification/ Establishment"];
+
+  const newExercise = new Exercise({
+    State,
+    Address,
+    DOB,
+  });
+
+  newExercise
+    .save()
+    .then(() => res.json("Test Added!"))
+    .catch((err) => res.status(400).json("Ërror: " + err));
+});
+
 module.exports = router;

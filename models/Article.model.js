@@ -8,12 +8,15 @@ const ArticleSchema = new Schema({
   },
   topic: {
     type: String,
+    required: true,
   },
   body: {
     type: String,
+    required: true,
   },
   writtenBy: {
     type: String,
+    required: true,
   },
 });
 

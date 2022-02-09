@@ -8,4 +8,30 @@ router.route("/").get((req, res) => {
     .catch((err) => res.status(400).json("Error: " + err));
 });
 
+router.route("/add").post((req, res) => {
+  const ConductedBy = req.body.ConductedBy;
+  const ExamDate = req.body.ExamDate;
+  const ExamName = req.body.ExamName;
+  const OfficialWebsite = req.body.OfficialWebsite;
+  const ExamType = req.body.ExamType;
+  const ExamLevel = req.body.ExamLevel;
+  const Eligibility = req.body.Eligibility;
+  const ModeOfExam = req.body.ModeOfExam;
+
+  const newExams = new Exams({
+    ConductedBy,
+    ExamDate,
+    ExamName,
+    OfficialWebsite,
+    ExamType,
+    ExamLevel,
+    Eligibility,
+    ModeOfExam,
+  });
+  newExams
+    .save()
+    .then(() => res.json("Exam Added!"))
+    .catch((err) => res.status(400).json("Error: " + err));
+});
+
 module.exports = router;

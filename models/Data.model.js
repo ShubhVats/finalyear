@@ -16,7 +16,6 @@ const DataSchema = new Schema({
   },
   "Date/Year of Notification/ Establishment": {
     type: String,
-    required: true,
   },
 });
 
