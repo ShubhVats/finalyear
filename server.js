@@ -14,7 +14,7 @@ const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true });
 const connection = mongoose.connection;
 connection.once("open", () => {
-  console.log("MongoDB database connection established successfully");
+    console.log("MongoDB database connection established successfully");
 });
 
 const usersRouter = require("./routes/users");
@@ -23,6 +23,7 @@ const BannersRouter = require("./routes/Banners");
 const ExamsRouter = require("./routes/Exams");
 const ArticlesRouter = require("./routes/Articles");
 const ReviewRouter = require("./routes/Reviews");
+const CollegesRouter = require("./routes/Colleges");
 // const exerciseRouter = require("./routes/exercises");
 // const userRouter = require("./routes/users");
 
@@ -32,9 +33,10 @@ app.use("/Banners", BannersRouter);
 app.use("/Exams", ExamsRouter);
 app.use("/Articles", ArticlesRouter);
 app.use("/Reviews", ReviewRouter);
+app.use("/Colleges", CollegesRouter);
 // app.use("/exercises", exerciseRouter);
 // app.use("/users", userRouter);
 
 app.listen(port, () => {
-  console.log(`Server is running on port: ${port}`);
+    console.log(`Server is running on port: ${port}`);
 });
