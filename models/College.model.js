@@ -30,6 +30,10 @@ const CollegeSchema = new Schema({
         type: String,
         required: true,
     },
+    CollegeImg: {
+        type: String,
+        required: true,
+    },
 });
 
 module.exports = mongoose.model("College", CollegeSchema);

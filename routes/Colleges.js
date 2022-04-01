@@ -15,6 +15,7 @@ router.route("/add").post((req, res) => {
     const CollegeWebsite = req.body.CollegeWebsite;
     const Overview = req.body.Overview;
     const CollegeType = req.body.CollegeType;
+    const CollegeImg = req.body.CollegeImg;
 
     const newCollege = new College({
         CollegeName,
@@ -23,6 +24,7 @@ router.route("/add").post((req, res) => {
         CollegeWebsite,
         Overview,
         CollegeType,
+        CollegeImg,
     });
 
     newCollege
